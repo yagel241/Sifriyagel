@@ -17,21 +17,14 @@ public class ProductControl {
         if (type == COMICS) {
             String serial = UUID.randomUUID().toString();
             Base.addNotNull(this.products, new Comics(serial, name, author, location, attributes));
-
-
         }
         if (type == MOVIE) {
             String serial = UUID.randomUUID().toString();
             Base.addNotNull(this.products, new Movie(serial, name, author, location, attributes));
-
-
         }
         if (type == TEXT_BOOK) {
             String serial = UUID.randomUUID().toString();
             Base.addNotNull(this.products, new TextBook(serial, name, author, location, attributes));
-
-
         }
-
     }
 }

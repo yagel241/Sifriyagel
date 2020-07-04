@@ -2,9 +2,8 @@ package model.product;
 
 abstract public class Product {
 
-    public enum Type {COMICS, TEXT_BOOK, MOVIE}
+    public enum Type {COMICS, TEXT_BOOK, MOVIE};
 
-    ;
     protected String name;
     protected String author;
     protected Location location;
