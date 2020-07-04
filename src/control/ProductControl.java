@@ -6,6 +6,7 @@ import utils.Base;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import static model.product.Product.Type.*;
@@ -27,4 +28,16 @@ public class ProductControl {
             Base.addNotNull(this.products, new TextBook(serial, name, author, location, attributes));
         }
     }
+    public void deleteProduct(String name, Type type){
+
+
+
+
+    }
+
+    public Collection<Product> findByName(String name,Type type) {
+
+        return null;
+    }
+
 }
