@@ -31,4 +31,9 @@ public class TextBook extends Product {
     public void setGrade(Integer grade) {
         this.grade = grade;
     }
+
+    @Override
+    public Type getType() {
+        return Type.TEXT_BOOK;
+    }
 }

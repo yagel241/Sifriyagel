@@ -32,4 +32,9 @@ public class Movie extends Product{
     public void setYear(Integer year) {
         this.year = year;
     }
+
+    @Override
+    public Type getType() {
+        return Type.MOVIE;
+    }
 }

@@ -32,4 +32,9 @@ public class Comics extends Product {
     public void setEdition(Integer edition) {
         this.edition = edition;
     }
+
+    @Override
+    public Type getType() {
+        return Type.COMICS;
+    }
 }

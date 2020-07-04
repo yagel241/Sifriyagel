@@ -16,17 +16,11 @@ abstract public class Product {
         this.location = location;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public String getAuthor() {
-        return author;
-    }
+    public String getAuthor() { return author; }
 
     public void setAuthor(String author) {
         this.author = author;
@@ -47,4 +41,8 @@ abstract public class Product {
     public void setSerial(String serial) {
         this.serial = serial;
     }
+
+    abstract public Type getType();
+
+
 }
