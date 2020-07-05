@@ -33,7 +33,7 @@ public class TextBook extends Product {
     }
 
     @Override
-    public Type getType() {
-        return Type.TEXT_BOOK;
+    public ProductType getType() {
+        return ProductType.TEXT_BOOK;
     }
 }

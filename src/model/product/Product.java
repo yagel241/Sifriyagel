@@ -2,7 +2,7 @@ package model.product;
 
 abstract public class Product {
 
-    public enum Type {COMICS, TEXT_BOOK, MOVIE};
+    public enum ProductType {COMICS, TEXT_BOOK, MOVIE};
 
     protected String name;
     protected String author;
@@ -42,7 +42,7 @@ abstract public class Product {
         this.serial = serial;
     }
 
-    abstract public Type getType();
+    abstract public ProductType getType();
 
 
 }

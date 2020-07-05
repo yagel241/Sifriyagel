@@ -34,7 +34,7 @@ public class Comics extends Product {
     }
 
     @Override
-    public Type getType() {
-        return Type.COMICS;
+    public ProductType getType() {
+        return ProductType.COMICS;
     }
 }

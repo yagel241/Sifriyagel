@@ -34,7 +34,7 @@ public class Movie extends Product{
     }
 
     @Override
-    public Type getType() {
-        return Type.MOVIE;
+    public ProductType getType() {
+        return ProductType.MOVIE;
     }
 }
