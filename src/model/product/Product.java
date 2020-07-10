@@ -1,19 +1,38 @@
 package model.product;
 
-abstract public class Product {
+import control.LibraryControl;
+import control.LibraryControl.ProductType;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-    public enum ProductType {COMICS, TEXT_BOOK, MOVIE};
+abstract public class Product {
 
     protected String name;
     protected String author;
     protected Location location;
     protected String serial;
+    protected Integer quantity;
 
-    public Product(String serial, String name, String author, Location location) {
+    protected boolean deleteMe;
+
+    public Product(String serial, String name, String author, Integer quantity, Location location) {
         this.serial = serial;
         this.name = name;
         this.author = author;
         this.location = location;
+        this.quantity = quantity;
+        this.deleteMe = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", location=" + location +
+                ", serial='" + serial + '\'' +
+                '}';
     }
 
     public String getName() { return name; }
@@ -30,6 +49,10 @@ abstract public class Product {
         return location;
     }
 
+    public String getLocationAsString() {
+        return "A" + this.location.getAisle() + "-S" + this.location.getShelf();
+    }
+
     public void setLocation(Location location) {
         this.location = location;
     }
@@ -42,7 +65,29 @@ abstract public class Product {
         this.serial = serial;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getAisle() {
+        return this.location.getAisle() + "";
+    }
+
+    public String getShelf() {
+        return this.location.getAisle() + "";
+    }
+
+    public String getQuantityAsString() {
+        return this.quantity + "";
+    }
+
     abstract public ProductType getType();
 
-
+    public boolean isDeleteMe() {
+        return deleteMe;
+    }
 }

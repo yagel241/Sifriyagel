@@ -1,41 +1,80 @@
 package control;
 
+import control.LibraryControl.ProductType;
 import model.person.Employee;
+import model.person.Manager;
 import model.product.*;
-import model.product.Product.ProductType;
 import utils.Base;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
+import java.lang.reflect.Field;
+import java.time.temporal.Temporal;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import static model.product.Product.ProductType.*;
+import static control.LibraryControl.ProductType.*;
+import static utils.Base.areParametersValid;
 
 public class ProductControl {
     private Collection<Product> products;
 
-    public void add(String name, String author, Location location, ProductType productType, Map<String, Object> attributes) {
-        String serial = UUID.randomUUID().toString();
-        if (productType == COMICS) {
-            Base.addNotNull(this.products, new Comics(serial, name, author, location, attributes));
-        } else if (productType == MOVIE) {
-            Base.addNotNull(this.products, new Movie(serial, name, author, location, attributes));
-        } else if (productType == TEXT_BOOK) {
-            Base.addNotNull(this.products, new TextBook(serial, name, author, location, attributes));
-        }
-    }
-    public void delete(String serial){
-        this.products.remove(find(serial));
+    public ProductControl() {
+        this.products = new ArrayList<>();
     }
 
-    private Product find(String serial) {
+    public void add(String name, String author, Integer quantity, Location location,
+                    ProductType productType, String[] attributes) {
+        String serial = UUID.randomUUID().toString();
+        List<String> fieldNames;
+        Map<String, Object> uniqueAttr = new TreeMap<>();
+        Product product = null;
+        if (productType == COMICS) {
+            fieldNames = getFieldNamesOf(Comics.class);
+            IntStream.range(0, fieldNames.size())
+                    .forEach(index -> uniqueAttr.put(fieldNames.get(index), attributes[index]));
+            product = new Comics(serial, name, author, quantity, location, uniqueAttr);
+        } else if (productType == MOVIE) {
+            fieldNames = getFieldNamesOf(Movie.class);
+            IntStream.range(0, fieldNames.size())
+                    .forEach(index -> uniqueAttr.put(fieldNames.get(index), attributes[index]));
+            product = new Movie(serial, name, author, quantity, location, uniqueAttr);
+        } else if (productType == TEXT_BOOK) {
+            fieldNames = getFieldNamesOf(TextBook.class);
+            IntStream.range(0, fieldNames.size())
+                    .forEach(index -> uniqueAttr.put(fieldNames.get(index), attributes[index]));
+            product = new TextBook(serial, name, author, quantity, location, uniqueAttr);
+        }
+        if (product == null || product.isDeleteMe()) {
+            return;
+        }
+        Base.addNotNull(this.products, product);
+    }
+
+    private List<String> getFieldNamesOf(Class<? extends Product> comicsClass) {
+        return Arrays.stream(comicsClass.getDeclaredFields())
+                .map(Field::getName)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public boolean delete(String serial) {
+        Product product = find(serial);
+        if (product == null) {
+            return false;
+        }
+        Integer quantity = product.getQuantity();
+        if (quantity == 1) {
+            this.products.remove(product);
+            return true;
+        }
+        product.setQuantity(quantity - 1);
+        return true;
+    }
+
+    public Product find(String serial) {
         return this.products.stream()
                 .filter(product -> product.getSerial().equals(serial)).findFirst().orElse(null);
     }
-
-
-
 
     public Collection<Product> findByNameAndType(String name, ProductType productType) {
         return this.products.stream()
@@ -43,4 +82,57 @@ public class ProductControl {
                         product.getType().equals(productType)).collect(Collectors.toList());
     }
 
+    public boolean returnLoanProduct(Product p) {
+        if (p != null && find(p.getSerial()) != null) {
+            p.setQuantity(p.getQuantity() + 1);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Product> findComicsBy_Name_Author(String name, String author) {
+        return this.products.stream()
+                .filter(product -> doesProductHave(product, name, author, COMICS))
+                .collect(Collectors.toList());
+    }
+
+    public List<Product> findTextBookBy_Name_Author(String name, String author){
+        return this.products.stream()
+                .filter(product -> doesProductHave(product, name, author, TEXT_BOOK))
+                .collect(Collectors.toList());
+    }
+
+    public List<Product> findMovieBy_Name_Author(String name, String author){
+        return this.products.stream()
+                .filter(product -> doesProductHave(product, name, author, MOVIE))
+                .collect(Collectors.toList());
+    }
+
+    private boolean doesProductHave(Product product, String name, String author, ProductType type) {
+        if (type == COMICS) {
+            if (!(product instanceof Comics)) {
+                return false;
+            }
+        }
+        if (type == TEXT_BOOK) {
+            if (!(product instanceof TextBook)) {
+                return false;
+            }
+        }
+        if (type == MOVIE) {
+            if (!(product instanceof Movie)) {
+                return false;
+            }
+        }
+        if (name != null && !(product.getName().toLowerCase().trim()
+                .contains(name.toLowerCase().trim()))) {
+            return false;
+        }
+        return author == null || product.getAuthor().toLowerCase().trim().contains(author.toLowerCase().trim());
+    }
+
+    public Collection<Product> getProducts() {
+        return products;
+    }
 }
+

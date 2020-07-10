@@ -1,5 +1,9 @@
 package model.person;
 
+import java.util.Objects;
+
+import static control.LibraryControl.Role;
+
 abstract public class Person {
 
     protected String name;
@@ -7,6 +11,10 @@ abstract public class Person {
     protected Address address;
     protected String phoneNumber;
     protected String id;
+
+    public Person() {
+        super();
+    }
 
     public Person(String id, String name, String email, String phoneNumber, Address address) {
         this.address=address;
@@ -23,7 +31,24 @@ abstract public class Person {
                 this.id, this.name, this.email, this.phoneNumber, this.address.toString());
     }
 
-        public String getName() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) &&
+                Objects.equals(email, person.email) &&
+                Objects.equals(address, person.address) &&
+                Objects.equals(phoneNumber, person.phoneNumber) &&
+                Objects.equals(id, person.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, address, phoneNumber, id);
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -62,4 +87,9 @@ abstract public class Person {
     public void setId(String id) {
         this.id = id;
     }
+
+    public abstract Role getRole();
+
+    public abstract String getRoleAsString();
+
 }
