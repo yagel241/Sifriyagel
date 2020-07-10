@@ -5,9 +5,9 @@ public abstract class Employee extends Person {
 
     private String employeeId;
 
-    public Employee(String id, String name, String email, String phoneNumber, Address address, String employeeId) {
+    public Employee(String id, String name, String email, String phoneNumber, String employeeId) {
 
-        super(id, name, email, phoneNumber, address);
+        super(id, name, email, phoneNumber);
         this.employeeId=employeeId;
 
     }
@@ -18,7 +18,6 @@ public abstract class Employee extends Person {
                 "employeeId='" + employeeId + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", address=" + address +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", id='" + id + '\'' +
                 '}';

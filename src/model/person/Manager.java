@@ -7,9 +7,9 @@ import static control.LibraryControl.Role.MANAGER;
 public class Manager extends Employee {
 
 
-    public Manager(String id, String name, String email, String phoneNumber, Address address, String managerId) {
+    public Manager(String id, String name, String email, String phoneNumber, String managerId) {
 
-        super(id, name, email, phoneNumber, address, managerId);
+        super(id, name, email, phoneNumber, managerId);
     }
 
     @Override

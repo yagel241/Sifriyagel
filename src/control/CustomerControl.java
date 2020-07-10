@@ -1,6 +1,5 @@
 package control;
 
-import model.person.Address;
 import model.person.Customer;
 
 import java.util.ArrayList;
@@ -20,10 +19,10 @@ public class CustomerControl {
         this.customers = new ArrayList<>();
     }
 
-    public void add(String id, String name, String email, String phoneNumber, Address address) {
+    public void add(String id, String name, String email, String phoneNumber) {
         if(areParametersValid(id, name, email, phoneNumber)) {
             String customerId = UUID.randomUUID().toString();
-            addNotNull(this.customers, new Customer(id, name, email, phoneNumber, address, customerId));
+            addNotNull(this.customers, new Customer(id, name, email, phoneNumber, customerId));
         }
     }
 
@@ -36,7 +35,7 @@ public class CustomerControl {
                 customer.getCustomerId().equals(customerId)).findFirst().orElse(null);
     }
 
-    public void update(String id, String customerId, String name, String email, String phoneNumber, Address address) {
+    public void update(String id, String customerId, String name, String email, String phoneNumber) {
         Customer customer = find(id, customerId);
         if (customer != null) {
             if (name != null && isName(name)) {
@@ -47,9 +46,6 @@ public class CustomerControl {
             }
             if (phoneNumber != null && isPhoneNumber(phoneNumber)) {
                 customer.setPhoneNumber(phoneNumber);
-            }
-            if (address != null) {
-                customer.setAddress(address);
             }
         }
     }

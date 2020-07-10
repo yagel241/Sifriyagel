@@ -1,7 +1,6 @@
 package control;
 
 import control.LibraryControl.Role;
-import model.person.Address;
 import model.person.Employee;
 import model.person.Librarian;
 import model.person.Manager;
@@ -28,24 +27,24 @@ public class EmployeeControl {
         this.employees.add(manager);
     }
 
-    public void add(String id, String name, String email, String phoneNumber, Address address, Boolean employeeRole) {
+    public void add(String id, String name, String email, String phoneNumber, Boolean employeeRole) {
         if (areParametersValid(id, name, email, phoneNumber) &&
                 this.employees.stream().noneMatch(employee -> employee.getId().equals(id))) {
             String employeeId = UUID.randomUUID().toString();
             if (employeeRole) {
-                addNotNull(this.employees, new Manager(id, name, email, phoneNumber, address, employeeId));
+                addNotNull(this.employees, new Manager(id, name, email, phoneNumber, employeeId));
             } else {
-                addNotNull(this.employees, new Librarian(id, name, email, phoneNumber, address, employeeId));
+                addNotNull(this.employees, new Librarian(id, name, email, phoneNumber, employeeId));
             }
         }
     }
 
-    public void update(String personId, String employeeId, Boolean changeRole, String name, String email, String phoneNumber, Address address) {
+    public void update(String personId, String employeeId, Boolean changeRole, String name, String email, String phoneNumber) {
         Employee employee = find(personId, employeeId);
         if (employee != null) {
             if (changeRole) {
                 changeRole(employee);
-                update(personId, employeeId, false, name, email, phoneNumber, address);
+                update(personId, employeeId, false, name, email, phoneNumber);
                 return;
             }
             if (name != null && isName(name)) {
@@ -57,18 +56,15 @@ public class EmployeeControl {
             if (phoneNumber != null && isPhoneNumber(phoneNumber)) {
                 employee.setPhoneNumber(phoneNumber);
             }
-            if (address != null) {
-                employee.setAddress(address);
-            }
         }
     }
 
     public void changeRole(Employee employee) {
         Employee toBeUpdated;
         if (employee instanceof Manager) {
-            toBeUpdated = new Librarian(employee.getId(), employee.getName(), employee.getEmail(), employee.getPhoneNumber(), employee.getAddress(), employee.getEmployeeId());
+            toBeUpdated = new Librarian(employee.getId(), employee.getName(), employee.getEmail(), employee.getPhoneNumber(), employee.getEmployeeId());
         } else if (employee instanceof Librarian) {
-            toBeUpdated = new Manager(employee.getId(), employee.getName(), employee.getEmail(), employee.getPhoneNumber(), employee.getAddress(), employee.getEmployeeId());
+            toBeUpdated = new Manager(employee.getId(), employee.getName(), employee.getEmail(), employee.getPhoneNumber(), employee.getEmployeeId());
         } else {
             throw new RuntimeException(String.format("%s is not a valid employee. hence it will not be updated", employee.toString()));
         }

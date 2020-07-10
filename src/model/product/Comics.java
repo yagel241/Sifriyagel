@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 
 import java.util.Map;
 
+import static control.LibraryControl.ProductType.COMICS;
+import static control.LibraryControl.ProductType.TEXT_BOOK;
 import static utils.Base.showAlert;
 
 public class Comics extends Product {
@@ -61,5 +63,10 @@ public class Comics extends Product {
     @Override
     public ProductType getType() {
         return ProductType.COMICS;
+    }
+
+    @Override
+    public String getTypeAsString() {
+        return COMICS.toString();
     }
 }

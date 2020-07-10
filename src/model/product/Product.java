@@ -1,5 +1,6 @@
 package model.product;
 
+import control.LibraryControl;
 import control.LibraryControl.ProductType;
 
 abstract public class Product {
@@ -28,6 +29,7 @@ abstract public class Product {
                 ", author='" + author + '\'' +
                 ", location=" + location +
                 ", serial='" + serial + '\'' +
+                ", quantity=" + quantity +
                 '}';
     }
 
@@ -81,9 +83,12 @@ abstract public class Product {
         return this.quantity + "";
     }
 
-    abstract public ProductType getType();
-
     public boolean isDeleteMe() {
         return deleteMe;
     }
+
+    public abstract ProductType getType();
+
+    public abstract String getTypeAsString();
+
 }

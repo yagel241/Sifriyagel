@@ -8,7 +8,6 @@ abstract public class Person {
 
     protected String name;
     protected String email;
-    protected Address address;
     protected String phoneNumber;
     protected String id;
 
@@ -16,8 +15,7 @@ abstract public class Person {
         super();
     }
 
-    public Person(String id, String name, String email, String phoneNumber, Address address) {
-        this.address=address;
+    public Person(String id, String name, String email, String phoneNumber) {
         this.email=email;
         this.id=id;
         this.name=name;
@@ -27,8 +25,8 @@ abstract public class Person {
 
     @Override
     public String toString() {
-        return String.format("id=%s, name=%s, email=%s, phoneNumber=%s, address=%s",
-                this.id, this.name, this.email, this.phoneNumber, this.address.toString());
+        return String.format("id=%s, name=%s, email=%s, phoneNumber=%s",
+                this.id, this.name, this.email, this.phoneNumber);
     }
 
     @Override
@@ -38,14 +36,13 @@ abstract public class Person {
         Person person = (Person) o;
         return Objects.equals(name, person.name) &&
                 Objects.equals(email, person.email) &&
-                Objects.equals(address, person.address) &&
                 Objects.equals(phoneNumber, person.phoneNumber) &&
                 Objects.equals(id, person.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, address, phoneNumber, id);
+        return Objects.hash(name, email, phoneNumber, id);
     }
 
     public String getName() {
@@ -62,14 +59,6 @@ abstract public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public String getPhoneNumber() {

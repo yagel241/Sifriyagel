@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 
 import java.util.Map;
 
+import static control.LibraryControl.ProductType.TEXT_BOOK;
+import static control.LibraryControl.Role.MANAGER;
 import static utils.Base.showAlert;
 
 public class TextBook extends Product {
@@ -59,6 +61,11 @@ public class TextBook extends Product {
 
     @Override
     public ProductType getType() {
-        return ProductType.TEXT_BOOK;
+        return TEXT_BOOK;
+    }
+
+    @Override
+    public String getTypeAsString() {
+        return TEXT_BOOK.toString();
     }
 }

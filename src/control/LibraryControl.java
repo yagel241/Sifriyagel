@@ -1,7 +1,6 @@
 package control;
 
 import javafx.scene.control.Alert;
-import model.person.Address;
 import model.person.Customer;
 import model.person.Person;
 import model.product.Location;
@@ -32,9 +31,9 @@ public class LibraryControl {
         this.productControl = new ProductControl();
     }
 
-    public void addNewCustomer(String mId, String managerId, String cId, String name, String email, String phoneNumber, Address address) {
+    public void addNewCustomer(String mId, String managerId, String cId, String name, String email, String phoneNumber) {
         if (this.employeeControl.isManager(mId, managerId)) {
-            this.customerControl.add(cId, name, email, phoneNumber, address);
+            this.customerControl.add(cId, name, email, phoneNumber);
         }
     }
 
@@ -44,15 +43,15 @@ public class LibraryControl {
         }
     }
 
-    public void updateCustomer(String id, String managerId, String id2, String customerId, String name, String email, String phoneNumber, Address address) {
+    public void updateCustomer(String id, String managerId, String id2, String customerId, String name, String email, String phoneNumber) {
         if (this.employeeControl.isManager(id, managerId)) {
-            this.customerControl.update(id2, customerId, name, email, phoneNumber, address);
+            this.customerControl.update(id2, customerId, name, email, phoneNumber);
         }
     }
 
-    public void addNewEmployee(String mId, String managerId, String eId, String name, String email, String phoneNumber, Address address, Boolean employeeRole) {
+    public void addNewEmployee(String mId, String managerId, String eId, String name, String email, String phoneNumber, Boolean employeeRole) {
         if (this.employeeControl.isManager(mId, managerId)) {
-            this.employeeControl.add(eId, name, email, phoneNumber, address, employeeRole);
+            this.employeeControl.add(eId, name, email, phoneNumber, employeeRole);
         }
     }
 
@@ -63,9 +62,9 @@ public class LibraryControl {
     }
 
     public void updateEmployee(String id, String managerId, String id2, String customerId, Boolean changRole,
-                               String name, String email, String phoneNumber, Address address) {
+                               String name, String email, String phoneNumber) {
         if (this.employeeControl.isManager(id, managerId)) {
-            this.employeeControl.update(id2, customerId, changRole, name, email, phoneNumber, address);
+            this.employeeControl.update(id2, customerId, changRole, name, email, phoneNumber);
         }
     }
 
@@ -149,15 +148,15 @@ public class LibraryControl {
     public boolean addNewPerson(String mId, String managerId, String id, String name, String phone, String email,
                                 Role role) {
         if (role == Role.MANAGER) {
-            this.addNewEmployee(mId, managerId, id, name, email, phone, new Address(), true);
+            this.addNewEmployee(mId, managerId, id, name, email, phone, true);
             return true;
         }
         if (role == Role.LIBRARIAN) {
-            this.addNewEmployee(mId, managerId, id, name, email, phone, new Address(), false);
+            this.addNewEmployee(mId, managerId, id, name, email, phone, false);
             return true;
         }
         if (role == Role.CUSTOMER) {
-            this.addNewCustomer(mId, managerId, id, name, email, phone, new Address());
+            this.addNewCustomer(mId, managerId, id, name, email, phone);
             return true;
         }
         return false;

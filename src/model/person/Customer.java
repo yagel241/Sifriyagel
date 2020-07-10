@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+import static control.LibraryControl.*;
 import static control.LibraryControl.Role.CUSTOMER;
 
 public class Customer extends Person {
@@ -22,8 +23,8 @@ public class Customer extends Person {
         super();
     }
 
-    public Customer(String id, String name, String email, String phoneNumber, Address address, String customerId) {
-        super(id, name, email, phoneNumber, address);
+    public Customer(String id, String name, String email, String phoneNumber, String customerId) {
+        super(id, name, email, phoneNumber);
         this.customerId=customerId;
         this.products = new ArrayList<>();
     }
@@ -87,7 +88,6 @@ public class Customer extends Person {
                 ", customerId='" + customerId + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", address=" + address +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 "products=" + products +
                 '}';
@@ -109,7 +109,7 @@ public class Customer extends Person {
     }
 
     @Override
-    public LibraryControl.Role getRole() {
+    public Role getRole() {
         return CUSTOMER;
     }
 
