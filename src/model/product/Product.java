@@ -1,10 +1,6 @@
 package model.product;
 
-import control.LibraryControl;
 import control.LibraryControl.ProductType;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 abstract public class Product {
 

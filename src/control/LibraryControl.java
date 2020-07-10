@@ -7,7 +7,10 @@ import model.person.Person;
 import model.product.Location;
 import model.product.Product;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static utils.Base.areProductParametersValid;

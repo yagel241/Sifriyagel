@@ -9,6 +9,7 @@ import model.product.TextBook;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import static control.LibraryControl.Role.CUSTOMER;
 
@@ -90,6 +91,21 @@ public class Customer extends Person {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 "products=" + products +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(products, customer.products) &&
+                Objects.equals(customerId, customer.customerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), products, customerId);
     }
 
     @Override

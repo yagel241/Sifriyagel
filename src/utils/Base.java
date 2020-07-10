@@ -26,7 +26,7 @@ public class Base {
     }
 
     public static boolean isName(String name) {
-         return Pattern.matches("^[a-zA-Z\\\\s]+", name);
+         return Pattern.matches("[a-zA-Z][a-zA-Z ]*", name);
     }
 
     public static boolean isEmail(String email) {

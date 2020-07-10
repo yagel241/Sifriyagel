@@ -1,21 +1,18 @@
 package control;
 
 import control.LibraryControl.ProductType;
-import model.person.Employee;
-import model.person.Manager;
 import model.product.*;
 import utils.Base;
 
 import java.lang.reflect.Field;
-import java.time.temporal.Temporal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static control.LibraryControl.ProductType.*;
-import static utils.Base.areParametersValid;
 
 public class ProductControl {
+
     private Collection<Product> products;
 
     public ProductControl() {

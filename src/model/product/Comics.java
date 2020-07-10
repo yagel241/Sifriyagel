@@ -1,6 +1,5 @@
 package model.product;
 
-import control.LibraryControl;
 import control.LibraryControl.ProductType;
 import javafx.scene.control.Alert;
 
