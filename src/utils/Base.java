@@ -11,10 +11,11 @@ public class Base {
             STAGE_MIN_WIDTH=700, BUTTON_SIZE =30, BOTTOM_TABLE_HEIGHT=200;
 
 
-    public static <E> void addNotNull(Collection<E> collection, E e) {
+    public static <E> E addNotNull(Collection<E> collection, E e) {
         if (e != null) {
             collection.add(e);
         }
+        return e;
     }
 
     public static boolean isId(String id) {

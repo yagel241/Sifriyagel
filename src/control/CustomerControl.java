@@ -19,11 +19,12 @@ public class CustomerControl {
         this.customers = new ArrayList<>();
     }
 
-    public void add(String id, String name, String email, String phoneNumber) {
+    public Customer add(String id, String name, String email, String phoneNumber) {
         if(areParametersValid(id, name, email, phoneNumber)) {
             String customerId = UUID.randomUUID().toString();
-            addNotNull(this.customers, new Customer(id, name, email, phoneNumber, customerId));
+         return addNotNull(this.customers, new Customer(id, name, email, phoneNumber, customerId));
         }
+        return null;
     }
 
     public void delete(String id, String customerId) {
@@ -35,7 +36,7 @@ public class CustomerControl {
                 customer.getCustomerId().equals(customerId)).findFirst().orElse(null);
     }
 
-    public void update(String id, String customerId, String name, String email, String phoneNumber) {
+    public Customer update(String id, String customerId, String name, String email, String phoneNumber) {
         Customer customer = find(id, customerId);
         if (customer != null) {
             if (name != null && isName(name)) {
@@ -47,7 +48,9 @@ public class CustomerControl {
             if (phoneNumber != null && isPhoneNumber(phoneNumber)) {
                 customer.setPhoneNumber(phoneNumber);
             }
+            return customer;
         }
+        return null;
     }
 
     public Customer findCustomerById(String cId) {

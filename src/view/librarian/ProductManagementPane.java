@@ -209,20 +209,20 @@ public class ProductManagementPane extends BorderPane {
                 });
                 if(product instanceof Comics){
                     Comics comics = (Comics) product;
-                    this.productUnique1Item.setText("Company:" + comics.getCompany());
-                    this.productUnique2Item.setText("Edition:" + comics.getEdition());
+                    this.productUnique1Item.setText("Company: " + comics.getCompany());
+                    this.productUnique2Item.setText("Edition: " + comics.getEdition());
                     this.productMoreDetailsMenu.getItems().addAll(this.productUnique1Item,this.productUnique2Item);
                 }
                 else if(product instanceof TextBook){
                     TextBook textBook = (TextBook) product;
-                    this.productUnique1Item.setText("Field:" + textBook.getField());
-                    this.productUnique2Item.setText("Grade:" + textBook.getGrade());
+                    this.productUnique1Item.setText("Field: " + textBook.getField());
+                    this.productUnique2Item.setText("Grade: " + textBook.getGrade());
                     this.productMoreDetailsMenu.getItems().addAll(this.productUnique1Item, this.productUnique2Item);
                 }
                 else if(product instanceof Movie){
                     Movie movie = (Movie) product;
-                    this.productUnique1Item.setText("Genre:" + movie.getGenre());
-                    this.productUnique2Item.setText("Year:" + movie.getYear());
+                    this.productUnique1Item.setText("Genre: " + movie.getGenre());
+                    this.productUnique2Item.setText("Year: " + movie.getYear());
                     this.productMoreDetailsMenu.getItems().addAll(this.productUnique1Item, this.productUnique2Item);
                 }
             }
