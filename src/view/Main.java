@@ -1,13 +1,14 @@
 package view;
 
-import com.sun.org.glassfish.external.statistics.AverageRangeStatistic;
 import control.LibraryControl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import model.person.*;
-import model.product.Comics;
+import model.person.Customer;
+import model.person.Employee;
+import model.person.Librarian;
+import model.person.Manager;
 import model.product.Location;
 import model.product.TextBook;
 import view.librarian.ProductManagementPane;

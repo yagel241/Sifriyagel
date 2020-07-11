@@ -6,7 +6,6 @@ import javafx.scene.control.Alert;
 import java.util.Map;
 
 import static control.LibraryControl.ProductType.MOVIE;
-import static control.LibraryControl.ProductType.TEXT_BOOK;
 import static utils.Base.showAlert;
 
 public class Movie extends Product{

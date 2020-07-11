@@ -1,12 +1,10 @@
 package view.librarian;
 
 import control.LibraryControl;
+import control.LibraryControl.ProductType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -14,13 +12,17 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.person.Customer;
 import model.person.Librarian;
+import model.product.Comics;
+import model.product.Movie;
 import model.product.Product;
+import model.product.TextBook;
 import utils.Base;
 import view.manager.PersonTableView;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static control.LibraryControl.ProductType.*;
 import static utils.Base.BOTTOM_TABLE_HEIGHT;
 import static utils.Base.SPACE;
 
@@ -33,10 +35,12 @@ public class ProductManagementPane extends BorderPane {
     private ProductDataPane dataPane;
     private ProductBtnPane btnPane;
     private ProductTransferPane productTransferPane;
-    private ContextMenu productTransferContextMenu;
+    private ContextMenu productMenu;
     private MenuItem productBorrowItem;
     private MenuItem productRetrieveItem;
-    private MenuItem productShowMoreDetails;
+    private MenuItem productUnique1Item;
+    private MenuItem productUnique2Item;
+    private Menu productMoreDetailsMenu;
     private Librarian loggedOnLibrarian;
 
     public ProductManagementPane(LibraryControl libraryControl) {
@@ -55,8 +59,14 @@ public class ProductManagementPane extends BorderPane {
         transferStage.setScene(new Scene(this.productTransferPane, 350, 100));
         this.productBorrowItem = new MenuItem("Borrow Product");
         this.productRetrieveItem = new MenuItem("Retrieve Product");
-        this.productShowMoreDetails = new MenuItem("More Details");
-        this.productTransferContextMenu = new ContextMenu(this.productBorrowItem, this.productRetrieveItem, this.productShowMoreDetails);
+        this.productMoreDetailsMenu = new Menu("More Details");
+        this.productUnique1Item = new MenuItem();
+        this.productUnique2Item = new MenuItem();
+        this.productMenu = new ContextMenu(this.productBorrowItem,
+                this.productRetrieveItem,
+                new SeparatorMenuItem(),
+                this.productMoreDetailsMenu);
+
     }
 
     private void initTop() {
@@ -181,9 +191,12 @@ public class ProductManagementPane extends BorderPane {
 
     private void handleTransferInitiation() {
         this.productView.setOnContextMenuRequested(e1 -> {
+            this.productMoreDetailsMenu.getItems().clear();
             Product product = this.productView.getSelectionModel().getSelectedItem();
             if (product != null) {
-                this.productTransferContextMenu.show(this.personView, e1.getScreenX(), e1.getScreenY());
+                this.productUnique1Item = new MenuItem();
+                this.productUnique2Item = new MenuItem();
+                this.productMenu.show(this.personView, e1.getScreenX(), e1.getScreenY());
                 this.productBorrowItem.setOnAction(e2 -> {
                     this.productTransferPane.setStyle(product.getSerial(), true);
                     transferStage.setTitle("SifriYagel - Borrow a Product");
@@ -194,6 +207,24 @@ public class ProductManagementPane extends BorderPane {
                     transferStage.setTitle("SifriYagel - Retrieve a Product");
                     transferStage.show();
                 });
+                if(product instanceof Comics){
+                    Comics comics = (Comics) product;
+                    this.productUnique1Item.setText("Company:" + comics.getCompany());
+                    this.productUnique2Item.setText("Edition:" + comics.getEdition());
+                    this.productMoreDetailsMenu.getItems().addAll(this.productUnique1Item,this.productUnique2Item);
+                }
+                else if(product instanceof TextBook){
+                    TextBook textBook = (TextBook) product;
+                    this.productUnique1Item.setText("Field:" + textBook.getField());
+                    this.productUnique2Item.setText("Grade:" + textBook.getGrade());
+                    this.productMoreDetailsMenu.getItems().addAll(this.productUnique1Item, this.productUnique2Item);
+                }
+                else if(product instanceof Movie){
+                    Movie movie = (Movie) product;
+                    this.productUnique1Item.setText("Genre:" + movie.getGenre());
+                    this.productUnique2Item.setText("Year:" + movie.getYear());
+                    this.productMoreDetailsMenu.getItems().addAll(this.productUnique1Item, this.productUnique2Item);
+                }
             }
         });
     }

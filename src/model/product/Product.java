@@ -1,6 +1,5 @@
 package model.product;
 
-import control.LibraryControl;
 import control.LibraryControl.ProductType;
 
 abstract public class Product {

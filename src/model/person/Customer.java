@@ -1,7 +1,6 @@
 package model.person;
 
 
-import control.LibraryControl;
 import model.product.Comics;
 import model.product.Movie;
 import model.product.Product;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
-import static control.LibraryControl.*;
+import static control.LibraryControl.Role;
 import static control.LibraryControl.Role.CUSTOMER;
 
 public class Customer extends Person {
