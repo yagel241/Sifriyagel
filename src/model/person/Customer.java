@@ -28,7 +28,7 @@ public class Customer extends Person {
         this.products = new ArrayList<>();
     }
 
-    public boolean add(Product p) {
+    public boolean borrow(Product p) {
         Product product = this.find(p.getSerial());
         if (product == null) {
             return this.addNewProduct(p);
@@ -59,8 +59,8 @@ public class Customer extends Person {
         return false;
     }
 
-    public boolean remove(Product p) {
-        Product product = this.find(p.getSerial());
+    public boolean retrieve(String serial) {
+        Product product = this.find(serial);
         if (product == null) {
             return false;
         }

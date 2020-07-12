@@ -68,19 +68,6 @@ public class LibraryControl {
         }
     }
 
-    public boolean borrowProduct(String lId, String librarianId, String cId, String customerId, String serial) {
-        if (this.employeeControl.isLibrarian(lId, librarianId)) {
-            Customer customer = this.customerControl.find(cId, customerId);
-            if (customer != null) {
-                Product product = this.productControl.find(serial);
-                if (product != null && this.productControl.delete(serial)) {
-                    return customer.add(product);
-                }
-            }
-        }
-        return false;
-    }
-
     public List<Customer> whoBorrowed(String serial) {
         if (this.productControl.find(serial) != null) {
             return this.customerControl.getCustomers().stream()
@@ -90,13 +77,26 @@ public class LibraryControl {
         return null;
     }
 
+    public boolean borrowProduct(String lId, String librarianId, String cId, String customerId, String serial) {
+        if (this.employeeControl.isLibrarian(lId, librarianId)) {
+            Customer customer = this.customerControl.find(cId, customerId);
+            if (customer != null) {
+                Product product = this.productControl.find(serial);
+                if (product != null && this.productControl.give(serial)) {
+                    return customer.borrow(product);
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean retrieveProduct(String lId, String librarianId, String cId, String customerId, String serial) {
         if (this.employeeControl.isLibrarian(lId, librarianId)) {
             Customer c = this.customerControl.find(cId, customerId);
             if (c != null) {
                 Product p = c.find(serial);
-                if (p != null && this.productControl.returnLoanProduct(p)) {
-                    return c.remove(p);
+                if (p != null && this.productControl.take(p.getSerial())) {
+                    return c.retrieve(p.getSerial());
                 }
             }
         }

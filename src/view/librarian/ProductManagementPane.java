@@ -181,6 +181,7 @@ public class ProductManagementPane extends BorderPane {
                         this.updateView();
                         this.productTransferPane.getCustomerIdField().clear();
                         transferStage.close();
+                        System.out.println(customer);
                     } else {
                         Base.showAlert(Alert.AlertType.ERROR, "Failed to retrieve the product!");
                     }

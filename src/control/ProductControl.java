@@ -1,7 +1,9 @@
 package control;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import control.LibraryControl.ProductType;
 import model.product.*;
+import org.w3c.dom.ls.LSOutput;
 import utils.Base;
 
 import java.lang.reflect.Field;
@@ -54,7 +56,7 @@ public class ProductControl {
                 .collect(Collectors.toList());
     }
 
-    public boolean delete(String serial) {
+    public boolean give(String serial) {
         Product product = find(serial);
         if (product == null) {
             return false;
@@ -65,6 +67,15 @@ public class ProductControl {
             return true;
         }
         product.setQuantity(quantity - 1);
+        return true;
+    }
+
+    public boolean take(String serial) {
+        Product product = find(serial);
+        if (product == null) {
+            return false;
+        }
+        product.setQuantity(product.getQuantity() + 1);
         return true;
     }
 
@@ -79,27 +90,19 @@ public class ProductControl {
                         product.getType().equals(productType)).collect(Collectors.toList());
     }
 
-    public boolean returnLoanProduct(Product p) {
-        if (p != null && find(p.getSerial()) != null) {
-            p.setQuantity(p.getQuantity() + 1);
-            return true;
-        }
-        return false;
-    }
-
     public List<Product> findComicsBy_Name_Author(String name, String author) {
         return this.products.stream()
                 .filter(product -> doesProductHave(product, name, author, COMICS))
                 .collect(Collectors.toList());
     }
 
-    public List<Product> findTextBookBy_Name_Author(String name, String author){
+    public List<Product> findTextBookBy_Name_Author(String name, String author) {
         return this.products.stream()
                 .filter(product -> doesProductHave(product, name, author, TEXT_BOOK))
                 .collect(Collectors.toList());
     }
 
-    public List<Product> findMovieBy_Name_Author(String name, String author){
+    public List<Product> findMovieBy_Name_Author(String name, String author) {
         return this.products.stream()
                 .filter(product -> doesProductHave(product, name, author, MOVIE))
                 .collect(Collectors.toList());
@@ -131,5 +134,6 @@ public class ProductControl {
     public Collection<Product> getProducts() {
         return products;
     }
+
 }
 

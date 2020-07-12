@@ -163,11 +163,11 @@ public class Main extends Application {
         Map<String, Object> m = new TreeMap<>();
         m.put("field", "aa");
         m.put("grade", "10");
-        IntStream.range(0, 10)
+        IntStream.range(0, 1)
                 .forEach(i -> this.libraryControl.getProductControl().getProducts().add(new TextBook("a", "aabbcc", "aabbcc",5, new Location(1, 1), m)));
 
-        IntStream.range(0, 10)
-                .forEach(i -> c.add(new TextBook("a", "aabbcc", "aabbcc",5, new Location(1, 1), m)));
+        IntStream.range(0, 1)
+                .forEach(i -> c.borrow(new TextBook("a", "aabbcc", "aabbcc",5, new Location(1, 1), m)));
     }
 
     private String random() {
