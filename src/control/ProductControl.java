@@ -1,9 +1,7 @@
 package control;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import control.LibraryControl.ProductType;
 import model.product.*;
-import org.w3c.dom.ls.LSOutput;
 import utils.Base;
 
 import java.lang.reflect.Field;

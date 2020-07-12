@@ -1,7 +1,6 @@
 package view.librarian;
 
 import control.LibraryControl;
-import control.LibraryControl.ProductType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,7 +21,6 @@ import view.manager.PersonTableView;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static control.LibraryControl.ProductType.*;
 import static utils.Base.BOTTOM_TABLE_HEIGHT;
 import static utils.Base.SPACE;
 

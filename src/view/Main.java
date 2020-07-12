@@ -5,19 +5,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import model.person.Customer;
 import model.person.Employee;
 import model.person.Librarian;
 import model.person.Manager;
-import model.product.Location;
-import model.product.TextBook;
 import view.librarian.ProductManagementPane;
 import view.manager.PersonManagementPane;
-
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
-import java.util.stream.IntStream;
 
 import static control.LibraryControl.ProductType.*;
 import static control.LibraryControl.Role;
@@ -33,10 +25,10 @@ public class Main extends Application {
     private PersonManagementPane managerPane;
     private ProductManagementPane librarianPane;
 
-    public static final Employee yagelLibrarian = new Librarian("311301493","Yagel Abbou", "yagel241@gmail.com",
+    public static final Employee yagelLibrarian = new Librarian("311301493","Yagel Abbou", "yagelLibrarian@gmail.com",
             "0525757441", "123456789");
 
-    public static final Employee yagelManager = new Manager("123456789","Yagel Abbou", "yagel241@gmail.com",
+    public static final Employee yagelManager = new Manager("123456789","Yagel Abbou", "yagelManager@gmail.com",
             "0525757441", "987654321");
 
     public static void main(String[] args) {
@@ -58,16 +50,6 @@ public class Main extends Application {
     }
 
     private void handleLogin() {
-        //TODO for debugging
-        this.loginPane.getIdField().setText(yagelLibrarian.getId());
-        this.loginPane.getEmailField().setText(yagelLibrarian.getEmail());
-        this.loginPane.getRoleSelection().getSelectionModel().select(Role.LIBRARIAN);
-
-//        this.loginPane.getIdField().setText(yagelManager.getId());
-//        this.loginPane.getEmailField().setText(yagelManager.getEmail());
-//        this.loginPane.getRoleSelection().getSelectionModel().select(Role.MANAGER);
-
-
         this.loginPane.getLoginBtn().setOnMouseClicked(e -> {
             Employee employee = this.libraryControl.getEmployeeControl().findEmployeeById_Email_Role(
                     this.loginPane.getIdField().getText(), this.loginPane.getEmailField().getText(),
@@ -79,7 +61,6 @@ public class Main extends Application {
                     this.loginStage.close();
                     this.managerStage.show();
                 } else if (employee.getRole() == Role.LIBRARIAN) {
-                    //TODO change to Librarian!
                     this.librarianPane.setLoggedOnLibrarian((Librarian) employee);
                     this.loginPane.clearInputData();
                     this.loginStage.close();
@@ -137,52 +118,20 @@ public class Main extends Application {
     }
 
     private void initProducts() {
-        IntStream.range(0, 10)
-                .forEach(i -> this.libraryControl.addNewProduct(
-                        yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), random(), random(), r(), r(), "10", COMICS, "1", "1"));
-        IntStream.range(0, 10)
-                .forEach(i -> this.libraryControl.addNewProduct(
-                        yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), random(), random(), r(), r(), "10", MOVIE, "1", "1"));
-        IntStream.range(0, 10)
-                .forEach(i -> this.libraryControl.addNewProduct(
-                        yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), random(), random(), r(), r(), "10", TEXT_BOOK, "1", "1"));
-    }
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Harry Potter and The Sorcerer's Stone", "JK Rolling", "1", "1", "10", MOVIE, "Science Fiction", "2001");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Harry Potter and The Chamber Of Secrets", "JK Rolling", "1", "2", "10", MOVIE, "Science Fiction", "2002");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Harry Potter and The Prisoner Of Azkaban", "JK Rolling", "1", "3", "10", MOVIE, "Science Fiction", "2004");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Iron Man Extremis", "Warren Ellis", "2", "1", "10", COMICS, "Marvel", "1");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "The Avengers", "Stan Lee", "2", "2", "10", COMICS, "Marvel", "1");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Spider Man", "Stan Lee", "2", "3", "10", COMICS, "Marvel", "15");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Bli Sodot", "Naomi Limor", "3", "1", "10", TEXT_BOOK, "Language", "1");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Theory Of Electricity", "Dr Yaakov Gal", "3", "2", "10", TEXT_BOOK, "Electronics", "13");
+        this.libraryControl.addNewProduct(yagelLibrarian.getId(), yagelLibrarian.getEmployeeId(), "Algebra", "Beni Goren", "3", "3", "10", TEXT_BOOK, "Math", "7");
+        }
 
     private void initPeople() {
-        IntStream.range(0, 10)
-                .forEach(i -> this.libraryControl.addNewEmployee(
-                        yagelManager.getId(),yagelManager.getEmployeeId(), r(), random(), random() + "a@a.a", r() + "1", true));
-        IntStream.range(0, 10)
-                .forEach(i -> this.libraryControl.addNewEmployee(
-                        yagelManager.getId(),yagelManager.getEmployeeId(), r(), random(), random() + "a@a.a", r() + "1", false));
-        IntStream.range(0, 10)
-                .forEach(i -> this.libraryControl.addNewCustomer(
-                        yagelManager.getId(),yagelManager.getEmployeeId(), r(), random(), random() + "a@a.a", r() + "1"));
-        Customer c = this.libraryControl.getCustomerControl().getCustomers().iterator().next();
-        System.out.println(c.getId());
-        Map<String, Object> m = new TreeMap<>();
-        m.put("field", "aa");
-        m.put("grade", "10");
-        IntStream.range(0, 1)
-                .forEach(i -> this.libraryControl.getProductControl().getProducts().add(new TextBook("a", "aabbcc", "aabbcc",5, new Location(1, 1), m)));
-
-        IntStream.range(0, 1)
-                .forEach(i -> c.borrow(new TextBook("a", "aabbcc", "aabbcc",5, new Location(1, 1), m)));
+this.libraryControl.addNewEmployee(yagelManager.getId(),yagelManager.getEmployeeId(),"308145390", "Orel Hadad", "orel.Manager@gmail.com", "0546838282", true);
+this.libraryControl.addNewEmployee(yagelManager.getId(),yagelManager.getEmployeeId(),"987654321", "Orel Hadad", "orel.Librarian@gmail.com" , "0546838282", false);
+this.libraryControl.addNewCustomer(yagelManager.getId(),yagelManager.getEmployeeId(),"170263236", "Michael Jordan", "TheBestEver@gmail.com", "0549193968");
     }
-
-    private String random() {
-        Random r = new Random();
-        String[] s = "abcdefghijklmnopq".split("");
-        return String.join(s[r.nextInt(s.length)], s[r.nextInt(s.length)], s[r.nextInt(s.length)],
-                s[r.nextInt(s.length)], s[r.nextInt(s.length)], s[r.nextInt(s.length)]);
-    }
-
-    private String r() {
-        Random r = new Random();
-        String[] s = "1234567890".split("");
-        return String.join(s[r.nextInt(s.length)], s[r.nextInt(s.length)],
-                s[r.nextInt(s.length)], s[r.nextInt(s.length)],
-                s[r.nextInt(s.length)], s[r.nextInt(s.length)]);
-    }
-
 }
